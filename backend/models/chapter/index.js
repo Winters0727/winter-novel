@@ -3,8 +3,8 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Chapter extends Model {
     static associate(models) {
-      Chapter.hasMany(models.ChapterReply, { as: 'chapterReplys' });
-      Chapter.belongsTo(models.Novel, { as: 'novel', foreignKey: 'id' });
+      Chapter.hasMany(models.ChapterReply, { foreignKey: 'chapter' });
+      Chapter.belongsTo(models.Novel, { foreignKey: 'novel' });
     }
   }
   Chapter.init(
