@@ -2,7 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const APIRouter = require('@routes');
+const APIRouter = require('@/routes');
 
 const app = express();
 
@@ -11,6 +11,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', APIRouter);
+app.use('/api', APIRouter);
 
 module.exports = app;
