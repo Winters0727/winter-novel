@@ -44,7 +44,6 @@ exports.login = async (req, res) => {
 
 exports.isLogin = async (req, res, next) => {
   try {
-    console.log(req.cookies);
     const token = req.cookies['token'];
     if (token && jwt.verify(token, process.env.JWT_SECRET)) {
       next();
