@@ -22,11 +22,24 @@ exports.getUsers = async query => {
   }
 };
 
-exports.getUser = async id => {
+exports.getUserByID = async id => {
   try {
     const data = await User.findOne({
       where: {
         id,
+      },
+    });
+    return data;
+  } catch (err) {
+    throw Error(err);
+  }
+};
+
+exports.getUserByUserID = async userID => {
+  try {
+    const data = await User.findOne({
+      where: {
+        userID,
       },
     });
     return data;
