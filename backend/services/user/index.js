@@ -57,8 +57,12 @@ exports.deleteUser = async id => {
         id,
       },
     });
-    await data.destroy();
-    return true;
+    if (data) {
+      await data.destroy();
+      return true;
+    } else {
+      return false;
+    }
   } catch (err) {
     throw Error(err);
   }
