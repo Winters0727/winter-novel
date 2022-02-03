@@ -13,7 +13,7 @@ module.exports = {
         unique: true,
       },
       userPassword: {
-        type: Sequelize.CHAR(20),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       userNickname: {
