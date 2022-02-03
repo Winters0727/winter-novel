@@ -1,15 +1,17 @@
 const userService = require('@/services/user');
+const hash = require('@/utils/hash');
 
 const userMessage = require('./message');
 
 exports.postUser = async (req, res) => {
   try {
-    const payload = req.body;
+    const hashedPassword = hash.createHashPassword(req.body.userPassword);
+    const payload = { ...req.body, userPassword: hashedPassword };
     const data = await userService.postUser(payload);
     return res.status(201).json({
       result: 'success',
       data,
-      message: userMessage.postSuccessMessage,
+      message: userMessage.postSuccess,
     });
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
@@ -28,8 +30,8 @@ exports.getUsers = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const data = await userService.getUser(userId);
+    const userID = req.params.id;
+    const data = await userService.getUserByID(userID);
     return res.status(200).json({ result: 'success', data });
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
@@ -38,13 +40,13 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userID = req.params.id;
     const payload = req.body;
-    const data = await userService.updateUser(userId, payload);
+    const data = await userService.updateUser(userID, payload);
     return res.status(200).json({
       result: 'success',
       data,
-      message: userMessage.updateSuccessMessage,
+      message: userMessage.updateSuccess,
     });
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
@@ -53,16 +55,16 @@ exports.updateUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const result = await userService.deleteUser(userId);
+    const userID = req.params.id;
+    const result = await userService.deleteUser(userID);
     if (result) {
       return res
         .status(200)
-        .json({ result: 'success', message: userMessage.deleteSuccessMessage });
+        .json({ result: 'success', message: userMessage.deleteSuccess });
     }
     return res
-      .status(500)
-      .json({ result: 'fail', message: userMessage.deleteFailMessage });
+      .status(400)
+      .json({ result: 'fail', message: userMessage.deleteFail });
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
   }
