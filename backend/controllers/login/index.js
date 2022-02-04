@@ -20,6 +20,9 @@ exports.login = async (req, res) => {
       const dataValues = data.dataValues;
 
       if (hashedPassword === dataValues.userPassword) {
+        await data.update({ ...dataValues, lastLoginAt: new Date(Date.now()) });
+        await data.save();
+
         const jwtToken = await token.createToken({
           id: dataValues.id,
           userID: dataValues.userID,
