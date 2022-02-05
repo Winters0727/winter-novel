@@ -13,4 +13,8 @@ app.use(cookieParser());
 
 app.use('/api', APIRouter);
 
+app.use((err, req, res, next) => {
+  return res.status(500).json({ error: err });
+});
+
 module.exports = app;
