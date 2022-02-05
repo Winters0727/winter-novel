@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class Article extends Model {
     static associate(models) {
       Article.hasMany(models.ArticleReply, { foreignKey: 'article' });
-      Article.belongsTo(models.User, { as: 'writer', foreignKey: 'user' });
+      Article.belongsTo(models.User, { foreignKey: 'user' });
     }
   }
   Article.init(
