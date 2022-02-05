@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 
-const { Article } = require('@/models');
+const { Article, ArticleReply } = require('@/models');
 
 exports.postArticle = async payload => {
   try {
@@ -43,6 +43,7 @@ exports.getArticleByID = async id => {
       where: {
         id,
       },
+      include: [ArticleReply],
     });
     return data;
   } catch (err) {
