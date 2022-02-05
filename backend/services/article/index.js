@@ -43,7 +43,7 @@ exports.getArticleByID = async id => {
       where: {
         id,
       },
-      include: [ArticleReply],
+      include: { model: ArticleReply, attributes: ['id', 'user', 'content'] },
     });
     return data;
   } catch (err) {

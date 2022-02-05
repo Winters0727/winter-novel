@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 
-const { Novel } = require('@/models');
+const { Novel, Chapter } = require('@/models');
 
 exports.postNovel = async payload => {
   try {
@@ -42,6 +42,10 @@ exports.getNovelByID = async id => {
     const data = await Novel.findOne({
       where: {
         id,
+      },
+      include: {
+        model: Chapter,
+        attributes: ['id', 'order', 'title'],
       },
     });
     return data;
