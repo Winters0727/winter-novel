@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+const novelService = require('@/services/novel');
 const chapterService = require('@/services/chapter');
 
 const chapterMessage = require('./message');
@@ -9,13 +10,24 @@ exports.postChapter = async (req, res) => {
     const token = req.cookies['token'];
     const { id } = jwt.decode(token).data;
 
-    const payload = { ...req.body, user: id };
-    const data = await chapterService.postChapter(payload);
-    return res.status(201).json({
-      result: 'success',
-      data,
-      message: chapterMessage.postSuccess,
-    });
+    const NovelID = req.body.novel;
+    const novelData = await novelService.getNovelByID(NovelID);
+    const authorID = novelData.user;
+
+    if (id === authorID) {
+      const payload = { ...req.body, user: id };
+      const data = await chapterService.postChapter(payload);
+      return res.status(201).json({
+        result: 'success',
+        data,
+        message: chapterMessage.postSuccess,
+      });
+    } else {
+      return res.status(401).json({
+        result: 'fail',
+        meessage: chapterMessage.unauthorized,
+      });
+    }
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
   }
@@ -78,8 +90,11 @@ exports.isAuthorized = async (req, res, next) => {
   const { id } = jwt.decode(token).data;
 
   const ChapterID = req.params.id;
-  const data = await chapterService.getChapterByID(ChapterID);
-  const { user } = data.dataValues;
+  const chapterData = await chapterService.getChapterByID(ChapterID);
+  const NovelID = chapterData.dataValues.novel;
+
+  const novelData = await novelService.getNovelByID(NovelID);
+  const { user } = novelData.dataValues;
 
   if (id === user) {
     next();
