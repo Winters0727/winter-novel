@@ -1,6 +1,6 @@
 const { User } = require('@/models');
 
-exports.postUser = async payload => {
+exports.post = async payload => {
   try {
     const data = await User.create(payload);
     return data;
@@ -9,7 +9,7 @@ exports.postUser = async payload => {
   }
 };
 
-exports.getUsers = async query => {
+exports.get = async query => {
   try {
     const data = await User.findAll({
       where: {
@@ -22,7 +22,7 @@ exports.getUsers = async query => {
   }
 };
 
-exports.getUserByID = async id => {
+exports.getByID = async id => {
   try {
     const data = await User.findOne({
       where: {
@@ -35,7 +35,7 @@ exports.getUserByID = async id => {
   }
 };
 
-exports.getUserByUserID = async userID => {
+exports.getByUserID = async userID => {
   try {
     const data = await User.findOne({
       where: {
@@ -48,7 +48,7 @@ exports.getUserByUserID = async userID => {
   }
 };
 
-exports.updateUser = async (id, payload) => {
+exports.update = async (id, payload) => {
   try {
     const data = await User.findOne({
       where: {
@@ -63,7 +63,7 @@ exports.updateUser = async (id, payload) => {
   }
 };
 
-exports.deleteUser = async id => {
+exports.delete = async id => {
   try {
     const data = await User.findOne({
       where: {

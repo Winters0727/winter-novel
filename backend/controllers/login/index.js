@@ -59,3 +59,23 @@ exports.isLogin = async (req, res, next) => {
     throw Error(err);
   }
 };
+
+exports.isAuthorized = modelService => {
+  return async (req, res, next) => {
+    const token = req.cookies['token'];
+    const { id } = jwt.decode(token).data;
+
+    const ModelID = req.params.id;
+    const data = await modelService.getByID(ModelID);
+    const { user } = data.dataValues;
+
+    if (id === user) {
+      next();
+    } else {
+      return res.status(401).json({
+        result: 'fail',
+        meessage: loginMessage.unauthorized,
+      });
+    }
+  };
+};

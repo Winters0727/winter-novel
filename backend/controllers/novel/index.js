@@ -10,7 +10,7 @@ exports.postNovel = async (req, res) => {
     const { id } = jwt.decode(token).data;
 
     const payload = { ...req.body, user: id };
-    const data = await novelService.postNovel(payload);
+    const data = await novelService.post(payload);
     return res.status(201).json({
       result: 'success',
       data,
@@ -24,7 +24,7 @@ exports.postNovel = async (req, res) => {
 exports.getNovels = async (req, res) => {
   try {
     const { query } = req;
-    const data = await novelService.getNovels(query);
+    const data = await novelService.get(query);
     return res.status(200).json({ result: 'success', data });
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
@@ -34,7 +34,7 @@ exports.getNovels = async (req, res) => {
 exports.getNovelsByKeyword = async (req, res) => {
   try {
     const keyword = req.params.keyword;
-    const data = await novelService.getNovelsByKeyword(keyword);
+    const data = await novelService.getByKeyword(keyword);
     return res.status(200).json({ result: 'success', data });
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
@@ -44,7 +44,7 @@ exports.getNovelsByKeyword = async (req, res) => {
 exports.getNovel = async (req, res) => {
   try {
     const NovelID = req.params.id;
-    const data = await novelService.getNovelByID(NovelID);
+    const data = await novelService.getByID(NovelID);
     return res.status(200).json({ result: 'success', data });
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
@@ -55,7 +55,7 @@ exports.updateNovel = async (req, res) => {
   try {
     const NovelID = req.params.id;
     const payload = req.body;
-    const data = await novelService.updateNovel(NovelID, payload);
+    const data = await novelService.update(NovelID, payload);
     return res.status(200).json({
       result: 'success',
       data,
@@ -69,7 +69,7 @@ exports.updateNovel = async (req, res) => {
 exports.deleteNovel = async (req, res) => {
   try {
     const NovelID = req.params.id;
-    const result = await novelService.deleteNovel(NovelID);
+    const result = await novelService.delete(NovelID);
     if (result) {
       return res
         .status(200)
@@ -80,23 +80,5 @@ exports.deleteNovel = async (req, res) => {
       .json({ result: 'fail', message: novelMessage.deleteFail });
   } catch (err) {
     return res.status(500).json({ result: 'fail', message: err.message });
-  }
-};
-
-exports.isAuthorized = async (req, res, next) => {
-  const token = req.cookies['token'];
-  const { id } = jwt.decode(token).data;
-
-  const NovelID = req.params.id;
-  const data = await novelService.getNovelByID(NovelID);
-  const { user } = data.dataValues;
-
-  if (id === user) {
-    next();
-  } else {
-    return res.status(401).json({
-      result: 'fail',
-      meessage: novelMessage.unauthorized,
-    });
   }
 };

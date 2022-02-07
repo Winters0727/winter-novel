@@ -1,5 +1,7 @@
 const express = require('express');
 
+const novelService = require('@/services/novel');
+
 const novelController = require('@/controllers/novel');
 const loginController = require('@/controllers/login');
 
@@ -11,13 +13,13 @@ router.get('/:id', novelController.getNovel);
 router.put(
   '/:id',
   loginController.isLogin,
-  novelController.isAuthorized,
+  loginController.isAuthorized(novelService),
   novelController.updateNovel,
 );
 router.delete(
   '/:id',
   loginController.isLogin,
-  novelController.isAuthorized,
+  loginController.isAuthorized(novelService),
   novelController.deleteNovel,
 );
 

@@ -2,7 +2,7 @@ const { Op } = require('sequelize');
 
 const { Article, ArticleReply } = require('@/models');
 
-exports.postArticle = async payload => {
+exports.post = async payload => {
   try {
     const data = await Article.create(payload);
     return data;
@@ -11,7 +11,7 @@ exports.postArticle = async payload => {
   }
 };
 
-exports.getArticles = async query => {
+exports.get = async query => {
   try {
     const data = await Article.findAll({
       where: {
@@ -24,7 +24,7 @@ exports.getArticles = async query => {
   }
 };
 
-exports.getArticlesByKeyword = async keyword => {
+exports.getByKeyword = async keyword => {
   try {
     const data = await Article.findAll({
       where: {
@@ -37,7 +37,7 @@ exports.getArticlesByKeyword = async keyword => {
   }
 };
 
-exports.getArticleByID = async id => {
+exports.getByID = async id => {
   try {
     const data = await Article.findOne({
       where: {
@@ -51,7 +51,7 @@ exports.getArticleByID = async id => {
   }
 };
 
-exports.updateArticle = async (id, payload) => {
+exports.update = async (id, payload) => {
   try {
     const data = await Article.findOne({
       where: {
@@ -66,7 +66,7 @@ exports.updateArticle = async (id, payload) => {
   }
 };
 
-exports.deleteArticle = async id => {
+exports.delete = async id => {
   try {
     const data = await Article.findOne({
       where: {

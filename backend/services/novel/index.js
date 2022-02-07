@@ -2,7 +2,7 @@ const { Op } = require('sequelize');
 
 const { Novel, Chapter } = require('@/models');
 
-exports.postNovel = async payload => {
+exports.post = async payload => {
   try {
     const data = await Novel.create(payload);
     return data;
@@ -11,7 +11,7 @@ exports.postNovel = async payload => {
   }
 };
 
-exports.getNovels = async query => {
+exports.get = async query => {
   try {
     const data = await Novel.findAll({
       where: {
@@ -24,7 +24,7 @@ exports.getNovels = async query => {
   }
 };
 
-exports.getNovelsByKeyword = async keyword => {
+exports.getByKeyword = async keyword => {
   try {
     const data = await Novel.findAll({
       where: {
@@ -37,7 +37,7 @@ exports.getNovelsByKeyword = async keyword => {
   }
 };
 
-exports.getNovelByID = async id => {
+exports.getByID = async id => {
   try {
     const data = await Novel.findOne({
       where: {
@@ -54,7 +54,7 @@ exports.getNovelByID = async id => {
   }
 };
 
-exports.updateNovel = async (id, payload) => {
+exports.update = async (id, payload) => {
   try {
     const data = await Novel.findOne({
       where: {
@@ -69,7 +69,7 @@ exports.updateNovel = async (id, payload) => {
   }
 };
 
-exports.deleteNovel = async id => {
+exports.delete = async id => {
   try {
     const data = await Novel.findOne({
       where: {

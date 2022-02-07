@@ -2,7 +2,7 @@ const { Op } = require('sequelize');
 
 const { Chapter, ChapterReply } = require('@/models');
 
-exports.postChapter = async payload => {
+exports.post = async payload => {
   try {
     const data = await Chapter.create(payload);
     return data;
@@ -11,7 +11,7 @@ exports.postChapter = async payload => {
   }
 };
 
-exports.getChapters = async query => {
+exports.get = async query => {
   try {
     const data = await Chapter.findAll({
       where: {
@@ -24,7 +24,7 @@ exports.getChapters = async query => {
   }
 };
 
-exports.getChapterByID = async id => {
+exports.getByID = async id => {
   try {
     const data = await Chapter.findOne({
       where: {
@@ -38,7 +38,7 @@ exports.getChapterByID = async id => {
   }
 };
 
-exports.updateChapter = async (id, payload) => {
+exports.update = async (id, payload) => {
   try {
     const data = await Chapter.findOne({
       where: {
@@ -53,7 +53,7 @@ exports.updateChapter = async (id, payload) => {
   }
 };
 
-exports.deleteChapter = async id => {
+exports.delete = async id => {
   try {
     const data = await Chapter.findOne({
       where: {
