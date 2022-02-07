@@ -3,7 +3,7 @@ const express = require('express');
 const chapterController = require('@/controllers/chapter');
 const loginController = require('@/controllers/login');
 
-const replyRouter = require('@/routes/article/reply');
+const replyRouter = require('@/routes/chapter/reply');
 
 const router = express.Router();
 
