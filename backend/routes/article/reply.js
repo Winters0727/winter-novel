@@ -3,6 +3,7 @@ const express = require('express');
 const replyService = require('@/services/articlereply');
 
 const replyController = require('@/controllers/articlereply');
+const loginController = require('@/controllers/login');
 
 const router = express.Router();
 
