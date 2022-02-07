@@ -7,9 +7,9 @@ const articleReplyMessage = require('./message');
 exports.postArticleReply = async (req, res) => {
   try {
     const token = req.cookies['token'];
-    const { id } = jwt.decode(token).data;
+    const { id, nickname } = jwt.decode(token).data;
 
-    const payload = { ...req.body, user: id };
+    const payload = { ...req.body, user: id, nickname };
     const data = await articleReplyService.post(payload);
     return res.status(201).json({
       result: 'success',
