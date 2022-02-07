@@ -52,7 +52,7 @@ exports.isLogin = async (req, res, next) => {
       next();
     } else {
       return res
-        .status(401)
+        .status(403)
         .json({ result: 'fail', message: loginMessage.unauthorized });
     }
   } catch (err) {
@@ -72,7 +72,7 @@ exports.isAuthorized = modelService => {
     if (id === user) {
       next();
     } else {
-      return res.status(401).json({
+      return res.status(403).json({
         result: 'fail',
         meessage: loginMessage.unauthorized,
       });

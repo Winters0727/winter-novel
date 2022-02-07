@@ -99,7 +99,7 @@ exports.isAuthorized = async (req, res, next) => {
   if (id === user) {
     next();
   } else {
-    return res.status(401).json({
+    return res.status(403).json({
       result: 'fail',
       meessage: chapterMessage.unauthorized,
     });
