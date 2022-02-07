@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
     const { userID, userPassword } = payload;
     const hashedPassword = hash.createHashPassword(userPassword);
 
-    const data = await userService.getUserByUserID(userID);
+    const data = await userService.getByUserID(userID);
 
     if (data) {
       const dataValues = data.dataValues;
