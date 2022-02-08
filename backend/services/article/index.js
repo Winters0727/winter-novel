@@ -45,7 +45,7 @@ exports.getByID = async id => {
       },
       include: {
         model: ArticleReply,
-        attributes: ['id', 'user', 'nickname', 'content'],
+        attributes: ['id', 'user', 'userNickname', 'content'],
       },
     });
     return data;

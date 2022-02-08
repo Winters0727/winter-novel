@@ -32,7 +32,7 @@ exports.getByID = async id => {
       },
       include: {
         model: ChapterReply,
-        attributes: ['id', 'user', 'nickname', 'content'],
+        attributes: ['id', 'user', 'userNickname', 'content'],
       },
     });
     return data;
