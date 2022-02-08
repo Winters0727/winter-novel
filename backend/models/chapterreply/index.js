@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      nickname: {
+      userNickname: {
         type: DataTypes.CHAR(10),
         allowNull: false,
       },

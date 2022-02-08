@@ -26,7 +26,7 @@ exports.login = async (req, res) => {
         const jwtToken = await token.createToken({
           id: dataValues.id,
           userID: dataValues.userID,
-          nickname: dataValues.userNickname,
+          userNickname: dataValues.userNickname,
         });
 
         res.cookie('token', jwtToken, { maxAge: TOKEN_MAXAGE });

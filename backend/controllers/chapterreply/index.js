@@ -7,9 +7,9 @@ const chapterReplyMessage = require('./message');
 exports.postChapterReply = async (req, res) => {
   try {
     const token = req.cookies['token'];
-    const { id, nickname } = jwt.decode(token).data;
+    const { id, userNickname } = jwt.decode(token).data;
 
-    const payload = { ...req.body, user: id, nickname };
+    const payload = { ...req.body, user: id, userNickname };
     const data = await chapterReplyService.post(payload);
     return res.status(201).json({
       result: 'success',

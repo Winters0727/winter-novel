@@ -25,7 +25,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       },
-      nickname: {
+      userNickname: {
         type: Sequelize.CHAR(10),
         allowNull: false,
       },
