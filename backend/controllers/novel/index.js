@@ -7,9 +7,9 @@ const novelMessage = require('./message');
 exports.postNovel = async (req, res) => {
   try {
     const token = req.cookies['token'];
-    const { id } = jwt.decode(token).data;
+    const { id, userNickname } = jwt.decode(token).data;
 
-    const payload = { ...req.body, user: id };
+    const payload = { ...req.body, user: id, userNickname };
     const data = await novelService.post(payload);
     return res.status(201).json({
       result: 'success',
