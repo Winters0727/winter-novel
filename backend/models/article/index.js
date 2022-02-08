@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
+      userNickname: {
+        type: DataTypes.CHAR(10),
+        allowNull: false,
+      },
       title: {
         type: DataTypes.STRING,
         allowNull: false,

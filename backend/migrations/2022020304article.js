@@ -16,6 +16,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       },
+      userNickname: {
+        type: Sequelize.CHAR(10),
+        allowNull: false,
+      },
       title: {
         type: Sequelize.STRING,
         allowNull: false,
